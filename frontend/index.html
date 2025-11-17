@@ -1,59 +1,13 @@
-<!-- Frontend prototype for Sanitas: simple responsive chat UI -->
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Sanitas Prototype</title>
-    <link rel="stylesheet" href="styles/style.css" />
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sanitas - AI Health Assistant</title>
   </head>
   <body>
-    <nav class="nav">
-      <div class="nav-inner">
-        <div class="brand">Sanitas</div>
-        <div class="nav-links">
-          <a href="#features">Features</a>
-          <a href="#chat">Chat</a>
-          <a href="#about">About</a>
-        </div>
-      </div>
-    </nav>
-
-    <header class="hero">
-      <h1 class="hero-title">AI Health Assistant</h1>
-      <p class="hero-sub">Fast answers, personalized guidance.</p>
-      <a class="cta" href="#chat">Start Chat</a>
-    </header>
-
-    <main>
-      <section id="features" class="features">
-        <h2>Key Features</h2>
-        <div class="feature-grid">
-          <div class="feature">AI Chatbot</div>
-          <div class="feature">User Profiles</div>
-          <div class="feature">Conversation History</div>
-          <div class="feature">Feedback</div>
-        </div>
-      </section>
-
-      <section id="chat" class="chat-section">
-        <h2>Chat with Sanitas</h2>
-        <div class="chat-window" id="chatWindow">
-          <!-- Chat bubbles will be injected here -->
-        </div>
-        <form id="chatForm" class="chat-form">
-          <input id="chatInput" placeholder="Ask something..." autocomplete="off" />
-          <button type="submit">Send</button>
-        </form>
-      </section>
-
-      <section id="about" class="about">
-        <h2>About</h2>
-        <p>Prototype demonstrating Gemini integration and chat persistence.</p>
-        <p>Contact: <a href="mailto:hello@sanitas.example">hello@sanitas.example</a></p>
-      </section>
-    </main>
-
-    <script src="scripts/app.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

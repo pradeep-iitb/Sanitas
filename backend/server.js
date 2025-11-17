@@ -21,6 +21,7 @@ connectDB();
 // Mount API routes
 app.use('/api/chat', require('./routes/chat'));
 app.use('/api/users', require('./routes/users'));
+app.use('/api/feedback', require('./routes/feedback'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
