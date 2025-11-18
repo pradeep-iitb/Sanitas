@@ -1,11 +1,21 @@
 import { useState, useRef, useEffect } from 'react'
-import { Send, Loader2, Bot, User as UserIcon, Sparkles } from 'lucide-react'
+import { Send, Loader2, Bot, User as UserIcon, Sparkles, Copy, Check, Trash2, Mic } from 'lucide-react'
 
 export default function ChatSection() {
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState(() => {
+    const saved = localStorage.getItem('chatHistory')
+    return saved ? JSON.parse(saved) : []
+  })
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [copiedIndex, setCopiedIndex] = useState(null)
+  const [isListening, setIsListening] = useState(false)
   const messagesEndRef = useRef(null)
+  
+  // Save messages to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('chatHistory', JSON.stringify(messages))
+  }, [messages])
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -22,8 +32,12 @@ export default function ChatSection() {
     const userMessage = input.trim()
     setInput('')
 
-    // Add user message
-    setMessages((prev) => [...prev, { role: 'user', content: userMessage }])
+    // Add user message with timestamp
+    setMessages((prev) => [...prev, { 
+      role: 'user', 
+      content: userMessage,
+      timestamp: new Date().toISOString()
+    }])
     setIsLoading(true)
 
     try {
@@ -38,18 +52,69 @@ export default function ChatSection() {
       }
 
       const data = await response.json()
-      setMessages((prev) => [...prev, { role: 'assistant', content: data.reply }])
+      setMessages((prev) => [...prev, { 
+        role: 'assistant', 
+        content: data.reply,
+        timestamp: new Date().toISOString()
+      }])
     } catch (error) {
       setMessages((prev) => [
         ...prev,
         {
           role: 'assistant',
           content: 'Sorry, I encountered an error. Please try again.',
+          timestamp: new Date().toISOString()
         },
       ])
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleClearChat = () => {
+    if (confirm('Are you sure you want to clear all messages?')) {
+      setMessages([])
+      localStorage.removeItem('chatHistory')
+    }
+  }
+
+  const handleCopyMessage = (content, index) => {
+    navigator.clipboard.writeText(content)
+    setCopiedIndex(index)
+    setTimeout(() => setCopiedIndex(null), 2000)
+  }
+
+  const handleVoiceInput = () => {
+    if (!('webkitSpeechRecognition' in window)) {
+      alert('Voice input is not supported in your browser')
+      return
+    }
+
+    const recognition = new webkitSpeechRecognition()
+    recognition.lang = 'en-US'
+    recognition.continuous = false
+
+    recognition.onstart = () => setIsListening(true)
+    recognition.onend = () => setIsListening(false)
+    
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript
+      setInput(transcript)
+    }
+
+    recognition.start()
+  }
+
+  const suggestedPrompts = [
+    "What are symptoms of flu?",
+    "How to improve sleep quality?",
+    "Benefits of daily exercise",
+    "Healthy meal ideas"
+  ]
+
+  const formatTime = (timestamp) => {
+    const date = new Date(timestamp)
+    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
   }
 
   return (
@@ -78,27 +143,61 @@ export default function ChatSection() {
 
         {/* Chat Container */}
         <div className="bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden shadow-2xl shadow-purple-500/20">
+          {/* Chat Header */}
+          <div className="px-6 py-4 bg-slate-800/60 backdrop-blur-xl border-b border-slate-700/50 flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Bot className="w-5 h-5 text-cyan-400" />
+              <span className="text-white font-semibold">Meru AI</span>
+              <div className="flex space-x-1">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-xs text-slate-400">Online</span>
+              </div>
+            </div>
+            {messages.length > 0 && (
+              <button
+                onClick={handleClearChat}
+                className="text-slate-400 hover:text-red-400 transition-colors p-2 rounded-lg hover:bg-slate-700/50"
+                title="Clear chat"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
           {/* Messages Area */}
           <div className="h-[500px] overflow-y-auto p-6 space-y-4 scrollbar-hidden">
             {messages.length === 0 && (
               <div className="flex flex-col items-center justify-center h-full text-center">
-                <div className="relative">
+                <div className="relative mb-8">
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 blur-2xl opacity-50 animate-pulse"></div>
                   <Bot className="w-20 h-20 text-cyan-400 mb-4 relative" />
                 </div>
                 <p className="text-2xl font-semibold text-white mb-2">
                   Start a conversation
                 </p>
-                <p className="text-slate-400">
+                <p className="text-slate-400 mb-6">
                   Ask me anything about health, wellness, or medical topics
                 </p>
+                
+                {/* Suggested Prompts */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 max-w-2xl">
+                  {suggestedPrompts.map((prompt, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setInput(prompt)}
+                      className="px-4 py-3 bg-slate-700/50 border border-slate-600/50 rounded-xl text-sm text-slate-300 hover:bg-slate-700 hover:border-cyan-500/50 hover:text-cyan-300 transition-all duration-200 hover:scale-105"
+                    >
+                      {prompt}
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
 
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`flex items-start space-x-3 animate-slide-up ${
+                className={`flex items-start space-x-3 animate-slide-up group ${
                   message.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''
                 }`}
               >
@@ -118,14 +217,36 @@ export default function ChatSection() {
                 </div>
 
                 {/* Message Bubble */}
-                <div
-                  className={`max-w-[75%] rounded-2xl px-4 py-3 ${
-                    message.role === 'user'
-                      ? 'bg-gradient-to-br from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/30'
-                      : 'bg-slate-700/50 backdrop-blur-xl border border-slate-600/50 text-slate-100 shadow-lg'
-                  }`}
-                >
-                  <p className="leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                <div className="flex-1 max-w-[75%]">
+                  <div
+                    className={`rounded-2xl px-4 py-3 ${
+                      message.role === 'user'
+                        ? 'bg-gradient-to-br from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/30'
+                        : 'bg-slate-700/50 backdrop-blur-xl border border-slate-600/50 text-slate-100 shadow-lg'
+                    }`}
+                  >
+                    <p className="leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                  </div>
+                  
+                  {/* Message Footer */}
+                  <div className={`flex items-center mt-1 space-x-2 ${message.role === 'user' ? 'justify-end' : ''}`}>
+                    <span className="text-xs text-slate-500">
+                      {message.timestamp && formatTime(message.timestamp)}
+                    </span>
+                    {message.role === 'assistant' && (
+                      <button
+                        onClick={() => handleCopyMessage(message.content, index)}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-slate-700/50"
+                        title="Copy message"
+                      >
+                        {copiedIndex === index ? (
+                          <Check className="w-3 h-3 text-green-400" />
+                        ) : (
+                          <Copy className="w-3 h-3 text-slate-400 hover:text-cyan-400" />
+                        )}
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
@@ -136,7 +257,11 @@ export default function ChatSection() {
                   <Bot className="w-5 h-5 text-white" />
                 </div>
                 <div className="bg-slate-700/50 backdrop-blur-xl border border-slate-600/50 rounded-2xl px-4 py-3 shadow-lg">
-                  <Loader2 className="w-5 h-5 text-cyan-400 animate-spin" />
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                  </div>
                 </div>
               </div>
             )}
@@ -147,14 +272,29 @@ export default function ChatSection() {
           {/* Input Area */}
           <form onSubmit={handleSubmit} className="p-4 bg-slate-800/60 backdrop-blur-xl border-t border-slate-700/50">
             <div className="flex space-x-2">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Type your message..."
-                disabled={isLoading}
-                className="flex-1 px-4 py-3 rounded-xl bg-slate-700/50 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-              />
+              <div className="flex-1 relative">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Type your message..."
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 pr-12 rounded-xl bg-slate-700/50 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                />
+                <button
+                  type="button"
+                  onClick={handleVoiceInput}
+                  disabled={isLoading}
+                  className={`absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-lg transition-all ${
+                    isListening 
+                      ? 'text-red-400 bg-red-500/20 animate-pulse' 
+                      : 'text-slate-400 hover:text-cyan-400 hover:bg-slate-600/50'
+                  }`}
+                  title="Voice input"
+                >
+                  <Mic className="w-4 h-4" />
+                </button>
+              </div>
               <button
                 type="submit"
                 disabled={isLoading || !input.trim()}
