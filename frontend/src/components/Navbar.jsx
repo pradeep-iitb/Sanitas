@@ -27,9 +27,9 @@ export default function Navbar({ activeSection, setActiveSection }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2 cursor-pointer" onClick={() => scrollToSection('home')}>
-            <Activity className="w-8 h-8 text-cyan-400" />
-            <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+          <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => scrollToSection('home')}>
+            <Activity className="w-8 h-8 text-cyan-400 group-hover:text-cyan-300 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12" />
+            <span className="text-2xl font-bold bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-500 bg-clip-text text-transparent group-hover:from-cyan-200 group-hover:to-purple-400 transition-all duration-300">
               Sanitas
             </span>
           </div>
@@ -42,8 +42,8 @@ export default function Navbar({ activeSection, setActiveSection }) {
                 onClick={() => scrollToSection(link.id)}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   activeSection === link.id
-                    ? 'text-cyan-400 bg-cyan-400/10 border border-cyan-400/20'
-                    : 'text-slate-300 hover:text-cyan-400 hover:bg-slate-800'
+                    ? 'text-cyan-300 bg-cyan-400/20 border border-cyan-400/40 shadow-lg shadow-cyan-500/20'
+                    : 'text-slate-200 hover:text-cyan-300 hover:bg-slate-800 hover:scale-105'
                 }`}
               >
                 {link.label}
