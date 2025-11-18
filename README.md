@@ -1,4 +1,320 @@
-# Sanitas - AI Health Assistant
+# Sanitas - AI-Powered Health Companion 🏥
+
+<div align="center">
+
+![Sanitas Logo](https://img.shields.io/badge/Sanitas-Health%20AI-00d9ff?style=for-the-badge&logo=activity&logoColor=white)
+[![React](https://img.shields.io/badge/React-18.2-61dafb?style=flat&logo=react)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-5.0-646cff?style=flat&logo=vite)](https://vitejs.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=flat&logo=node.js)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Database-47a248?style=flat&logo=mongodb)](https://www.mongodb.com/)
+
+**Your 24/7 AI-Powered Health Assistant**
+
+[Live Demo](#) | [Documentation](#features) | [Get Started](#installation)
+
+</div>
+
+---
+
+## 🌟 Features
+
+### 🎯 Advanced Landing Page
+- **Hyperspeed 3D Background** - Immersive WebGL highway animation
+- **Animated Feature Cards** - Interactive showcase of key features
+- **Smart Routing** - localStorage-based visit tracking
+- **Responsive Design** - Optimized for all devices
+
+### 💬 AI Chat Assistant
+- **Gemini AI Integration** - Powered by Google's advanced AI
+- **Chat History Persistence** - localStorage-based conversation saving
+- **Voice Input** - Web Speech API integration
+- **Suggested Prompts** - Quick health questions
+- **Message Timestamps** - Track conversation timeline
+- **Copy Messages** - Easy sharing of AI responses
+- **Export Chat** - Download conversation history
+
+### 📊 Health Dashboard
+- **7-Day Streak Tracker** - Gamified health logging
+- **Calorie Counter** - Daily nutrition tracking
+- **Meal Planner** - 4-meal daily breakdown
+- **Quick Actions** - Medipedia, Appointments, Leaderboard
+- **Animated Statistics** - Real-time health metrics
+- **Achievement System** - Unlock badges and rewards
+
+### 📅 Appointment Booking
+- **Time Slot Selection** - Visual availability calendar
+- **Doctor Listings** - Verified professionals with ratings
+- **Instant Booking** - Quick consultation scheduling
+- **Date Picker** - Flexible scheduling options
+
+### 📁 Medical Records
+- **Secure Storage** - Encrypted document management
+- **Easy Access** - View and download records
+- **Multiple Formats** - Lab reports, prescriptions, imaging
+
+### 🏆 Additional Features
+- **Health Encyclopedia** - Comprehensive medical knowledge base
+- **Notifications System** - Real-time health alerts
+- **Achievements & Badges** - Motivation through gamification
+- **Health Statistics** - Track heart rate, steps, calories, active minutes
+
+---
+
+## 🚀 Tech Stack
+
+### Frontend
+- **React 18.2** - Modern UI library
+- **Vite 5.0** - Lightning-fast build tool
+- **Tailwind CSS 3.3** - Utility-first styling
+- **Three.js** - 3D graphics and animations
+- **Lucide Icons** - Beautiful icon library
+- **PostCSS** - CSS processing
+
+### Backend
+- **Node.js** - JavaScript runtime
+- **Express** - Web framework
+- **MongoDB** - NoSQL database
+- **Mongoose** - ODM library
+- **Google Gemini API** - AI chat engine
+
+### DevOps
+- **ESLint** - Code quality
+- **Git** - Version control
+- **GitHub** - Repository hosting
+
+---
+
+## 📦 Installation
+
+### Prerequisites
+```bash
+node >= 18.0.0
+npm >= 9.0.0
+mongodb >= 6.0.0
+```
+
+### Clone Repository
+```bash
+git clone https://github.com/pradeep-iitb/Sanitas.git
+cd Sanitas
+```
+
+### Backend Setup
+```bash
+cd backend
+npm install
+```
+
+Create `.env` file:
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+Start backend:
+```bash
+npm run dev
+```
+
+### Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Visit: `http://localhost:5173`
+
+---
+
+## 🎨 Project Structure
+
+```
+Sanitas/
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Hero.jsx
+│   │   │   ├── ChatSection.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── About.jsx
+│   │   │   ├── AppointmentsSection.jsx
+│   │   │   ├── HealthStats.jsx
+│   │   │   ├── Achievements.jsx
+│   │   │   ├── MedicalRecords.jsx
+│   │   │   ├── Notifications.jsx
+│   │   │   ├── HealthEncyclopedia.jsx
+│   │   │   ├── Hyperspeed.jsx
+│   │   │   ├── Toast.jsx
+│   │   │   ├── LoadingSkeleton.jsx
+│   │   │   ├── ParticleBackground.jsx
+│   │   │   ├── ThemeToggle.jsx
+│   │   │   └── ChatExport.jsx
+│   │   ├── pages/
+│   │   │   ├── LandingPage.jsx
+│   │   │   └── MainApp.jsx
+│   │   ├── hooks/
+│   │   │   └── useScrollAnimation.js
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.js
+├── backend/
+│   ├── server.js
+│   ├── routes/
+│   ├── models/
+│   ├── controllers/
+│   └── package.json
+└── README.md
+```
+
+---
+
+## 🎯 Key Components
+
+### Landing Page
+- Hyperspeed 3D background animation
+- Hero section with animated CTA
+- Feature showcase grid
+- Statistics section
+- Smart routing to main app
+
+### Chat Section
+- Real-time AI responses
+- Voice input capability
+- Message persistence
+- Suggested prompts
+- Export functionality
+
+### Dashboard
+- Health metrics tracking
+- Streak visualization
+- Meal planning
+- Quick action buttons
+
+### Appointments
+- Interactive calendar
+- Time slot selection
+- Doctor profiles
+- Booking confirmation
+
+---
+
+## 🔧 Configuration
+
+### Tailwind Configuration
+Custom animations, gradients, and utilities configured in `tailwind.config.js`
+
+### Vite Configuration
+Optimized build settings in `vite.config.js`
+
+### PostCSS Configuration
+Module support via `postcss.config.cjs`
+
+---
+
+## 📝 Usage
+
+### First Visit
+1. Landing page loads with Hyperspeed background
+2. Click "Get Started" to enter main app
+3. Visit is saved in localStorage
+
+### Chat with AI
+1. Navigate to Chat section
+2. Type message or use voice input
+3. Get instant AI-powered health guidance
+4. History automatically saves
+
+### Track Health
+1. View Dashboard for daily stats
+2. Log meals and calories
+3. Maintain streaks
+4. Unlock achievements
+
+### Book Appointments
+1. Select preferred date
+2. Choose available time slot
+3. Pick doctor
+4. Confirm booking
+
+---
+
+## 🌈 Features Showcase
+
+### Animations
+- Fade-in effects
+- Slide-up transitions
+- Pulse animations
+- Blob movements
+- Hover scale effects
+- Icon rotations
+
+### Interactions
+- Smooth scrolling
+- Hover states
+- Click feedback
+- Loading states
+- Toast notifications
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+## 👤 Author
+
+**Pradeep**
+- GitHub: [@pradeep-iitb](https://github.com/pradeep-iitb)
+- Project: [Sanitas](https://github.com/pradeep-iitb/Sanitas)
+
+---
+
+## 🙏 Acknowledgments
+
+- Google Gemini AI for chat capabilities
+- Three.js community for 3D graphics support
+- Tailwind CSS for styling framework
+- React team for the amazing library
+
+---
+
+## 📊 Project Stats
+
+- **Components**: 25+
+- **Features**: 30+
+- **Animations**: 50+
+- **Lines of Code**: 5000+
+- **Commits**: 50+
+
+---
+
+<div align="center">
+
+**Made with ❤️ for better health management**
+
+⭐ Star this repo if you find it helpful!
+
+</div> - AI Health Assistant
 
 A modern, full-stack prototype health chatbot powered by Google Gemini API, built with React + Vite frontend and Node.js + Express backend.
 
