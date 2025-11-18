@@ -1,8 +1,10 @@
-import { Menu, X, Activity } from 'lucide-react'
+import { Menu, X, Activity, User, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 
 export default function Navbar({ activeSection, setActiveSection }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isProfileOpen, setIsProfileOpen] = useState(false)
+  const [username] = useState('Pradeep') // You can make this dynamic later
 
   const navLinks = [
     { id: 'home', label: 'Home' },
@@ -33,7 +35,7 @@ export default function Navbar({ activeSection, setActiveSection }) {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <button
                 key={link.id}
@@ -47,6 +49,35 @@ export default function Navbar({ activeSection, setActiveSection }) {
                 {link.label}
               </button>
             ))}
+            
+            {/* User Profile */}
+            <div className="relative">
+              <button
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                className="flex items-center space-x-2 px-3 py-2 rounded-lg text-slate-300 hover:text-cyan-400 hover:bg-slate-800 transition-all duration-200"
+              >
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center">
+                  <User className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-sm font-medium">{username}</span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${isProfileOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Dropdown Menu */}
+              {isProfileOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-slate-800/95 backdrop-blur-xl border border-slate-700 rounded-xl shadow-2xl overflow-hidden">
+                  <button className="w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-700 hover:text-cyan-400 transition-colors">
+                    Profile Settings
+                  </button>
+                  <button className="w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-700 hover:text-cyan-400 transition-colors">
+                    My Health Data
+                  </button>
+                  <button className="w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-700 hover:text-cyan-400 transition-colors border-t border-slate-700">
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -78,6 +109,19 @@ export default function Navbar({ activeSection, setActiveSection }) {
                 {link.label}
               </button>
             ))}
+            
+            {/* Mobile User Profile */}
+            <div className="border-t border-slate-800 mt-2 pt-2">
+              <div className="flex items-center space-x-3 px-3 py-2 text-slate-300">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center">
+                  <User className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <p className="font-semibold text-white">{username}</p>
+                  <p className="text-xs text-slate-400">View Profile</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
