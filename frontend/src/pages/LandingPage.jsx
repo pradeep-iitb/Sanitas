@@ -168,7 +168,7 @@ export default function LandingPage({ onEnterApp }) {
                 Your AI-Powered Health Companion
               </p>
               <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto mb-10">
-                Experience the future of healthcare with intelligent diagnostics, personalized wellness tracking, and 24/7 AI-powered medical assistance.
+                Experience the future of healthcare with intelligent diagnostics, quick online appointments and treatments, personalized wellness tracking, and 24/7 AI-powered medical assistance.
               </p>
             </div>
 
