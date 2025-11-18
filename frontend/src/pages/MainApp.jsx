@@ -7,13 +7,18 @@ import ChatSection from '../components/ChatSection'
 import About from '../components/About'
 import FeedbackModal from '../components/FeedbackModal'
 
-export default function MainApp() {
+export default function MainApp({ onLogout }) {
   const [activeSection, setActiveSection] = useState('home')
   const [showFeedback, setShowFeedback] = useState(false)
 
+  const handleLogout = () => {
+    localStorage.removeItem('hasVisitedSanitas')
+    if (onLogout) onLogout()
+  }
+
   return (
     <div className="min-h-screen bg-slate-900">
-      <Navbar activeSection={activeSection} setActiveSection={setActiveSection} />
+      <Navbar activeSection={activeSection} setActiveSection={setActiveSection} onLogout={handleLogout} />
       <main>
         <Hero setActiveSection={setActiveSection} />
         <ChatSection />

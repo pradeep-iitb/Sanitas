@@ -1,10 +1,15 @@
 import { Menu, X, Activity, User, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 
-export default function Navbar({ activeSection, setActiveSection }) {
+export default function Navbar({ activeSection, setActiveSection, onLogout }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const [username] = useState('Pradeep') // You can make this dynamic later
+
+  const handleLogout = () => {
+    setIsProfileOpen(false)
+    if (onLogout) onLogout()
+  }
 
   const navLinks = [
     { id: 'home', label: 'Home' },
@@ -72,8 +77,11 @@ export default function Navbar({ activeSection, setActiveSection }) {
                   <button className="w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-700 hover:text-cyan-400 transition-colors">
                     My Health Data
                   </button>
-                  <button className="w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-700 hover:text-cyan-400 transition-colors border-t border-slate-700">
-                    Logout
+                  <button 
+                    onClick={handleLogout}
+                    className="w-full text-left px-4 py-3 text-red-400 hover:bg-slate-700 hover:text-red-300 transition-colors border-t border-slate-700 font-semibold"
+                  >
+                    Logout & Return to Landing
                   </button>
                 </div>
               )}
@@ -121,6 +129,12 @@ export default function Navbar({ activeSection, setActiveSection }) {
                   <p className="text-xs text-slate-400">View Profile</p>
                 </div>
               </div>
+              <button 
+                onClick={handleLogout}
+                className="w-full text-left px-3 py-2 text-red-400 hover:bg-slate-800 hover:text-red-300 rounded-lg transition-colors font-semibold mt-2"
+              >
+                Logout & Return to Landing
+              </button>
             </div>
           </div>
         </div>
