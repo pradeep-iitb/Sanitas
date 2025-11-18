@@ -98,15 +98,16 @@ export default function About() {
                 return (
                   <div
                     key={index}
-                    className="group p-5 bg-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl hover:border-slate-500/50 hover:bg-slate-700/50 transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                    className="group p-5 bg-slate-700/30 backdrop-blur-sm border-2 border-slate-600/40 rounded-xl hover:border-cyan-400/60 hover:bg-slate-700/60 transition-all duration-300 hover:scale-110 hover:-translate-y-2 hover:shadow-2xl animate-fade-in"
+                    style={{animationDelay: `${index * 0.1}s`}}
                   >
                     <div className="flex items-start space-x-4">
-                      <div className={`p-3 ${item.bg} rounded-lg group-hover:scale-110 transition-transform`}>
+                      <div className={`p-3 ${item.bg} rounded-lg group-hover:scale-125 group-hover:rotate-12 transition-transform shadow-lg`}>
                         <Icon className={`w-6 h-6 bg-gradient-to-br ${item.gradient} bg-clip-text text-transparent`} style={{WebkitTextFillColor: 'transparent', backgroundClip: 'text'}} />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-semibold text-white mb-1 group-hover:text-cyan-400 transition-colors">{item.title}</h4>
-                        <p className="text-slate-400 text-sm leading-relaxed">{item.description}</p>
+                        <h4 className="font-semibold text-white mb-1 group-hover:text-cyan-300 transition-colors text-lg">{item.title}</h4>
+                        <p className="text-slate-400 text-sm leading-relaxed group-hover:text-slate-300 transition-colors">{item.description}</p>
                       </div>
                     </div>
                   </div>
