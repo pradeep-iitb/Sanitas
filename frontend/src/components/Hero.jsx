@@ -13,7 +13,7 @@ export default function Hero({ setActiveSection }) {
   return (
     <section id="home" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden min-h-screen">
       {/* Hyperspeed Background */}
-      <div className="absolute inset-0 w-full h-full opacity-60 z-0">
+      <div className="fixed inset-0 w-full h-full opacity-60 z-0">
         <Hyperspeed
           effectOptions={{
             onSpeedUp: () => {},
