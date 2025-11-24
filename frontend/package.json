@@ -1,4 +1,5 @@
 {
+"description": "Sanitas - AI-Powered Health Platform Frontend",
   "name": "sanitas-frontend",
   "version": "0.1.0",
   "private": true,
