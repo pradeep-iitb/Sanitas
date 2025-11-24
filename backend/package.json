@@ -1,4 +1,5 @@
 {
+"description": "Sanitas - AI-Powered Health Platform Backend API",
   "name": "sanitas-backend",
   "version": "0.1.0",
   "description": "Backend for Sanitas prototype (Node + Express)",
