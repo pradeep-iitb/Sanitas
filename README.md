@@ -593,3 +593,4 @@ For questions or support, email: hello@sanitas.example
 ---
 
 **Built with ❤️ using React, Node.js, and Google Gemini**
+## 🚀 Quick Start
