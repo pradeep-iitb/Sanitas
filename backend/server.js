@@ -28,18 +28,10 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Mount API routes - wrapped in try-catch to prevent crashes
-try {
-  app.use('/api/chat', require('./routes/chat'));
-  app.use('/api/users', require('./routes/users'));
-  app.use('/api/feedback', require('./routes/feedback'));
-} catch (error) {
-  console.error('Error loading routes:', error);
-  // Fallback routes if loading fails
-  app.use('/api/chat', (req, res) => res.status(500).json({ error: 'Chat route failed to load' }));
-  app.use('/api/users', (req, res) => res.status(500).json({ error: 'Users route failed to load' }));
-  app.use('/api/feedback', (req, res) => res.status(500).json({ error: 'Feedback route failed to load' }));
-}
+// Mount API routes
+app.use('/api/chat', require('./routes/chat'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/feedback', require('./routes/feedback'));
 
 const PORT = process.env.PORT || 5000;
 
