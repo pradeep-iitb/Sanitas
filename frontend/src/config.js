@@ -1,3 +1,4 @@
+// Sanitas Frontend Configuration - Auto-detects Codespaces/localhost
 // Frontend configuration
 // Using OR operator for dev and production environments
 
