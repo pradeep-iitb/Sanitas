@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Star, Send, CheckCircle } from 'lucide-react'
+import { BACKEND_ORIGIN } from '../config'
 
 export default function FeedbackModal({ onClose }) {
   const [rating, setRating] = useState(0)
@@ -14,7 +15,7 @@ export default function FeedbackModal({ onClose }) {
 
     setIsSubmitting(true)
     try {
-      const response = await fetch('/api/feedback', {
+      const response = await fetch(`${BACKEND_ORIGIN}/api/feedback`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ rating, comment }),

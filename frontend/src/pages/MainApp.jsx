@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import Dashboard from '../components/Dashboard'
 import ChatSection from '../components/ChatSection'
+import QuickLinks from '../components/QuickLinks'
 import About from '../components/About'
 import FeedbackModal from '../components/FeedbackModal'
 
@@ -22,6 +23,7 @@ export default function MainApp({ onLogout }) {
       <main>
         <Hero setActiveSection={setActiveSection} />
         <ChatSection />
+        <QuickLinks />
         <Dashboard />
         <About />
       </main>

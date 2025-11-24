@@ -12,8 +12,12 @@ exports.postChat = async (req, res) => {
 
   const { message, userId } = req.body;
   try {
-    // Call Gemini API via helper
+    console.log('Received chat message:', message);
+    
+    // Call OpenAI API via helper
     const reply = await geminiClient.getReply(message);
+    
+    console.log('Got reply from OpenAI:', reply);
 
     // Save to DB for persistence (if DB configured)
     try {
@@ -24,7 +28,7 @@ exports.postChat = async (req, res) => {
 
     return res.json({ reply });
   } catch (err) {
-    console.error('Chat error:', err.message);
-    return res.status(500).json({ error: 'Server error' });
+    console.error('Chat error details:', err);
+    return res.status(500).json({ error: 'Server error', details: err.message });
   }
 };

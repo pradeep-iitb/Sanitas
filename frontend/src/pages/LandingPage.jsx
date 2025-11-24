@@ -66,8 +66,12 @@ export default function LandingPage({ onEnterApp }) {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
               {/* Logo */}
-              <div className="flex items-center space-x-2 cursor-pointer group">
-                <Activity className="w-8 h-8 text-cyan-400 group-hover:text-cyan-300 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12" />
+              <div className="flex items-center space-x-3 cursor-pointer group">
+                <img 
+                  src="/sanitas.jpeg" 
+                  alt="Sanitas Logo" 
+                  className="w-10 h-10 rounded-full object-cover group-hover:scale-110 transition-all duration-300 shadow-lg shadow-cyan-500/30"
+                />
                 <span className="text-2xl font-bold bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-500 bg-clip-text text-transparent">
                   Sanitas
                 </span>

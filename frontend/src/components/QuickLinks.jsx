@@ -1,9 +1,9 @@
-import { Calendar, Video, MessageSquare } from 'lucide-react'
+import { BookOpen, Trophy, Calendar } from 'lucide-react'
 
-export default function AppointmentsSection() {
+export default function QuickLinks() {
   return (
-    <section id="appointments" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative">
-      <div className="max-w-7xl mx-auto">
+    <section id="quick-links" className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900">
+      <div className="relative max-w-7xl mx-auto z-10">
         {/* Full Width Appointment Card */}
         <div className="bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-purple-500/10 backdrop-blur-xl border border-cyan-500/30 rounded-3xl p-10 md:p-16 mb-8 animate-fade-in relative overflow-hidden">
           {/* Animated Background */}
@@ -38,50 +38,50 @@ export default function AppointmentsSection() {
 
         {/* Two Half-Width Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Video Consultation Card */}
-          <div className="group bg-slate-800/50 backdrop-blur-xl border border-slate-700 rounded-3xl p-8 hover:border-purple-500/50 hover:scale-105 transition-all duration-300 cursor-pointer animate-fade-in relative overflow-hidden">
+          {/* Medipedia Card */}
+          <div className="group bg-slate-800/50 backdrop-blur-xl border border-slate-700 rounded-3xl p-8 hover:border-cyan-500/50 hover:scale-105 transition-all duration-300 cursor-pointer animate-fade-in relative overflow-hidden">
             {/* Hover Effect Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-pink-500/0 group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-blue-500/0 group-hover:from-cyan-500/10 group-hover:to-blue-500/10 transition-all duration-300"></div>
             
             <div className="relative z-10 text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-lg shadow-purple-500/50">
-                <Video className="w-10 h-10 text-white" />
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-lg shadow-cyan-500/50">
+                <BookOpen className="w-10 h-10 text-white" />
               </div>
               
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-purple-400 transition-colors">
-                🎥 Video Consultation
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors">
+                📚 Medipedia
               </h3>
               
               <p className="text-slate-400 group-hover:text-slate-300 transition-colors mb-6 text-base md:text-lg">
-                Connect with doctors via secure video calls from the comfort of your home
+                Explore comprehensive health encyclopedia with verified medical information
               </p>
               
-              <button className="w-full px-6 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 group-hover:scale-105">
-                Start Video Call
+              <button className="w-full px-6 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 group-hover:scale-105">
+                Explore Now
               </button>
             </div>
           </div>
 
-          {/* Chat with Specialists Card */}
-          <div className="group bg-slate-800/50 backdrop-blur-xl border border-slate-700 rounded-3xl p-8 hover:border-green-500/50 hover:scale-105 transition-all duration-300 cursor-pointer animate-fade-in relative overflow-hidden" style={{ animationDelay: '150ms' }}>
+          {/* Leaderboard Card */}
+          <div className="group bg-slate-800/50 backdrop-blur-xl border border-slate-700 rounded-3xl p-8 hover:border-yellow-500/50 hover:scale-105 transition-all duration-300 cursor-pointer animate-fade-in relative overflow-hidden" style={{ animationDelay: '150ms' }}>
             {/* Hover Effect Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-green-500/0 to-teal-500/0 group-hover:from-green-500/10 group-hover:to-teal-500/10 transition-all duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/0 to-orange-500/0 group-hover:from-yellow-500/10 group-hover:to-orange-500/10 transition-all duration-300"></div>
             
             <div className="relative z-10 text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-teal-500 mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-lg shadow-green-500/50">
-                <MessageSquare className="w-10 h-10 text-white" />
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-yellow-500 to-orange-600 mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-lg shadow-yellow-500/50">
+                <Trophy className="w-10 h-10 text-white" />
               </div>
               
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-green-400 transition-colors">
-                💬 Chat with Specialists
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-yellow-400 transition-colors">
+                🏆 Leaderboard
               </h3>
               
               <p className="text-slate-400 group-hover:text-slate-300 transition-colors mb-6 text-base md:text-lg">
-                Get instant text-based consultations with specialized healthcare providers
+                Track your wellness journey and compete with global health enthusiasts
               </p>
               
-              <button className="w-full px-6 py-4 bg-gradient-to-r from-green-500 to-teal-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-green-500/50 transition-all duration-300 group-hover:scale-105">
-                Start Chat
+              <button className="w-full px-6 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-yellow-500/50 transition-all duration-300 group-hover:scale-105">
+                View Rankings
               </button>
             </div>
           </div>
