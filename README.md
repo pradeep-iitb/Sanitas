@@ -625,3 +625,6 @@ Create a `.env` file in the backend directory.
 - React 18
 - Vite
 - Tailwind CSS
+
+### Backend
+- Node.js & Express
