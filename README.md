@@ -604,3 +604,8 @@ npm install
 ```bash
 cd backend && npm install
 ```
+
+### Frontend Setup
+```bash
+cd frontend && npm install
+```
