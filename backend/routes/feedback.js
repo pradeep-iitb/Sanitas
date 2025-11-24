@@ -1,8 +1,7 @@
-// Feedback routes for collecting user ratings and comments
+// Feedback routes (simplified for serverless)
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
-const Feedback = require('../models/feedback');
 
 // Submit feedback
 router.post(
@@ -17,7 +16,17 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    try {
+    // Just acknowledge - DB disabled on serverless
+    console.log('Feedback received:', req.body);
+    res.status(201).json({ message: 'Feedback received', success: true });
+  }
+);
+
+router.get('/', async (req, res) => {
+  res.status(200).json({ feedbacks: [] });
+});
+
+module.exports = router;
       const feedback = await Feedback.create(req.body);
       res.status(201).json(feedback);
     } catch (err) {
