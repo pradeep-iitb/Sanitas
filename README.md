@@ -622,3 +622,4 @@ Create a `.env` file in the backend directory.
 
 ## 🛠️ Tech Stack
 ### Frontend
+- React 18
