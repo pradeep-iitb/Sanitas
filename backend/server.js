@@ -1,10 +1,7 @@
 // Sanitas Backend API Server - Health Platform Backend
-// Entry point for the backend server
-// Sets up Express, connects to MongoDB, and mounts API routes
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db');
 
 dotenv.config();
 
@@ -13,7 +10,7 @@ const app = express();
 // Enable JSON body parsing
 app.use(express.json());
 
-// CORS: allow all origins for Codespaces compatibility
+// CORS: allow all origins
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -26,8 +23,11 @@ app.get('/', (req, res) => {
   res.json({ message: 'Sanitas Backend API is running!' });
 });
 
-// Connect to MongoDB
-connectDB();
+// Connect to MongoDB only if not on Vercel (to avoid timeout)
+if (!process.env.VERCEL) {
+  const connectDB = require('./config/db');
+  connectDB();
+}
 
 // Mount API routes
 app.use('/api/chat', require('./routes/chat'));

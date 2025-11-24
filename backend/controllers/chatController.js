@@ -14,16 +14,18 @@ exports.postChat = async (req, res) => {
   try {
     console.log('Received chat message:', message);
     
-    // Call OpenAI API via helper
+    // Call AI API
     const reply = await geminiClient.getReply(message);
     
-    console.log('Got reply from OpenAI:', reply);
+    console.log('Got reply from AI:', reply);
 
-    // Save to DB for persistence (if DB configured)
-    try {
-      await ChatHistory.create({ user: userId || null, message, reply });
-    } catch (e) {
-      console.warn('Failed to save chat history:', e.message);
+    // Save to DB only if not on Vercel (skip DB on serverless)
+    if (!process.env.VERCEL) {
+      try {
+        await ChatHistory.create({ user: userId || null, message, reply });
+      } catch (e) {
+        console.warn('Failed to save chat history:', e.message);
+      }
     }
 
     return res.json({ reply });
