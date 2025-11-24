@@ -3,7 +3,12 @@
 
 // Backend URL configuration
 const getBackendOrigin = () => {
-  // Production Vercel backend
+  // Production Vercel backend (hardcoded)
+  if (window.location.hostname.includes('vercel.app')) {
+    return 'https://sanitas-backend.vercel.app';
+  }
+  
+  // Environment variable
   if (import.meta.env.VITE_BACKEND_URL) {
     return import.meta.env.VITE_BACKEND_URL;
   }
