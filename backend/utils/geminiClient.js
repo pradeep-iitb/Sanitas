@@ -11,11 +11,12 @@ async function getReply(message) {
   try {
     const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-pro',
-      systemInstruction: 'You are Meru AI, a helpful and compassionate health assistant. Provide accurate, clear health information while being empathetic. Always remind users to consult healthcare professionals for serious concerns.'
+      model: 'gemini-1.5-flash'
     });
     
-    const result = await model.generateContent(message);
+    const prompt = `You are Meru AI, a helpful and compassionate health assistant. Provide accurate, clear health information while being empathetic. Always remind users to consult healthcare professionals for serious concerns.\n\nUser: ${message}\nAssistant:`;
+    
+    const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
     
