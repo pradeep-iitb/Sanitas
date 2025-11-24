@@ -11,9 +11,9 @@ async function getReply(message) {
   try {
     const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
     
-    // Use gemini-1.5-flash-8b which is available in free tier
+    // Use gemini-2.0-flash which is available
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-1.5-flash-8b'
+      model: 'gemini-2.0-flash'
     });
     
     const prompt = `You are Meru AI, a helpful and compassionate health assistant. Provide accurate, clear health information while being empathetic. Always remind users to consult healthcare professionals for serious concerns.\n\nUser: ${message}\nAssistant:`;
