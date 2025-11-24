@@ -609,3 +609,6 @@ cd backend && npm install
 ```bash
 cd frontend && npm install
 ```
+
+### Environment Variables
+Create a `.env` file in the backend directory.
