@@ -630,3 +630,6 @@ Create a `.env` file in the backend directory.
 - Node.js & Express
 - MongoDB
 - Google Gemini AI API
+
+## 📄 License
+MIT License
