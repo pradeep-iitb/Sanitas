@@ -642,3 +642,4 @@ For questions or support, please open an issue.
 
 ## 🙏 Acknowledgments
 - Google Gemini AI for powering the health chatbot
+- React and Tailwind CSS communities
