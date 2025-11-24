@@ -628,3 +628,4 @@ Create a `.env` file in the backend directory.
 
 ### Backend
 - Node.js & Express
+- MongoDB
