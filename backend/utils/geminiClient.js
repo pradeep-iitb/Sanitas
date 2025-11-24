@@ -8,14 +8,19 @@ async function getReply(message) {
     throw new Error('Gemini API key not configured');
   }
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
 
   const requestBody = JSON.stringify({
     contents: [{
       parts: [{
-        text: `You are Meru AI, a helpful and compassionate health assistant. Provide accurate, clear health information while being empathetic. Always remind users to consult healthcare professionals for serious concerns.\n\nUser: ${message}\nAssistant:`
+        text: message
       }]
     }],
+    systemInstruction: {
+      parts: [{
+        text: "You are Meru AI, a helpful and compassionate health assistant. Provide accurate, clear health information while being empathetic. Always remind users to consult healthcare professionals for serious concerns."
+      }]
+    },
     generationConfig: {
       temperature: 0.7,
       maxOutputTokens: 500,
