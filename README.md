@@ -619,3 +619,6 @@ Create a `.env` file in the backend directory.
 - 📅 Online appointment booking system
 - 🍱 Meal and calorie tracking
 - 🔥 Daily health streak tracking
+
+## 🛠️ Tech Stack
+### Frontend
