@@ -1,5 +1,5 @@
-// Gemini AI client helper
-const https = require('https');
+// Gemini AI client using official Google SDK
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
@@ -8,67 +8,22 @@ async function getReply(message) {
     throw new Error('Gemini API key not configured');
   }
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
-
-  const requestBody = JSON.stringify({
-    contents: [{
-      parts: [{
-        text: message
-      }]
-    }],
-    systemInstruction: {
-      parts: [{
-        text: "You are Meru AI, a helpful and compassionate health assistant. Provide accurate, clear health information while being empathetic. Always remind users to consult healthcare professionals for serious concerns."
-      }]
-    },
-    generationConfig: {
-      temperature: 0.7,
-      maxOutputTokens: 500,
-    }
-  });
-
-  return new Promise((resolve, reject) => {
-    const urlObj = new URL(url);
-    const options = {
-      hostname: urlObj.hostname,
-      path: urlObj.pathname + urlObj.search,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(requestBody)
-      }
-    };
-
-    const req = https.request(options, (res) => {
-      let data = '';
-      
-      res.on('data', (chunk) => {
-        data += chunk;
-      });
-      
-      res.on('end', () => {
-        try {
-          if (res.statusCode !== 200) {
-            reject(new Error(`Gemini API error: ${res.statusCode} ${data}`));
-            return;
-          }
-          
-          const jsonData = JSON.parse(data);
-          const reply = jsonData.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I could not generate a response.';
-          resolve(reply);
-        } catch (error) {
-          reject(error);
-        }
-      });
+  try {
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-pro',
+      systemInstruction: 'You are Meru AI, a helpful and compassionate health assistant. Provide accurate, clear health information while being empathetic. Always remind users to consult healthcare professionals for serious concerns.'
     });
-
-    req.on('error', (error) => {
-      reject(error);
-    });
-
-    req.write(requestBody);
-    req.end();
-  });
+    
+    const result = await model.generateContent(message);
+    const response = await result.response;
+    const text = response.text();
+    
+    return text || 'Sorry, I could not generate a response.';
+  } catch (error) {
+    console.error('Gemini API error:', error);
+    throw error;
+  }
 }
 
 module.exports = { getReply };

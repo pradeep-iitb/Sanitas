@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const https = require('https');
+const geminiClient = require('./utils/geminiClient');
 
 dotenv.config();
 
@@ -29,7 +29,7 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Chat endpoint - inline implementation
+// Chat endpoint - using geminiClient
 app.post('/api/chat', async (req, res) => {
   try {
     const { message } = req.body;
@@ -38,73 +38,7 @@ app.post('/api/chat', async (req, res) => {
       return res.status(400).json({ error: 'Message is required' });
     }
 
-    const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-    
-    if (!GEMINI_API_KEY) {
-      return res.status(500).json({ error: 'Gemini API key not configured' });
-    }
-
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
-    const requestBody = JSON.stringify({
-      contents: [{
-        parts: [{
-          text: message
-        }]
-      }],
-      systemInstruction: {
-        parts: [{
-          text: "You are Meru AI, a helpful and compassionate health assistant. Provide accurate, clear health information while being empathetic. Always remind users to consult healthcare professionals for serious concerns."
-        }]
-      },
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 500,
-      }
-    });
-
-    const reply = await new Promise((resolve, reject) => {
-      const urlObj = new URL(url);
-      const options = {
-        hostname: urlObj.hostname,
-        path: urlObj.pathname + urlObj.search,
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Content-Length': Buffer.byteLength(requestBody)
-        }
-      };
-
-      const req = https.request(options, (apiRes) => {
-        let data = '';
-        
-        apiRes.on('data', (chunk) => {
-          data += chunk;
-        });
-        
-        apiRes.on('end', () => {
-          try {
-            if (apiRes.statusCode !== 200) {
-              reject(new Error(`Gemini API error: ${apiRes.statusCode} ${data}`));
-              return;
-            }
-            
-            const jsonData = JSON.parse(data);
-            const replyText = jsonData.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I could not generate a response.';
-            resolve(replyText);
-          } catch (error) {
-            reject(error);
-          }
-        });
-      });
-
-      req.on('error', (error) => {
-        reject(error);
-      });
-
-      req.write(requestBody);
-      req.end();
-    });
-
+    const reply = await geminiClient.getReply(message);
     return res.json({ reply });
   } catch (error) {
     console.error('Chat error:', error);
