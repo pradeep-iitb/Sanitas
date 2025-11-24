@@ -639,3 +639,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📧 Contact
 For questions or support, please open an issue.
+
+## 🙏 Acknowledgments
+- Google Gemini AI for powering the health chatbot
