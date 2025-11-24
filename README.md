@@ -599,3 +599,8 @@ For questions or support, email: hello@sanitas.example
 ```bash
 npm install
 ```
+
+### Backend Setup
+```bash
+cd backend && npm install
+```
