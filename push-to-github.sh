@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Script to push code to GitHub in 30 separate commits
-# This helps maintain a good commit history
+# Script to push code to GitHub in 30 separate commits and pushes
+# Each commit will be pushed individually to show activity on GitHub profile
 
-echo "🚀 Starting GitHub push process with 30 commits..."
+echo "🚀 Starting GitHub push process with 30 individual commits and pushes..."
 
 # Configure git if needed
 git config --global user.email "${GIT_EMAIL:-pradeep@sanitas.dev}"
@@ -43,42 +43,53 @@ commits=(
     "chore: Final cleanup and optimization for deployment"
 )
 
-# Get all changed files
+# Get all changed files first
 git add .
 
-# Create 30 commits
+# Check if there are changes to commit
+if ! git diff --cached --quiet; then
+    echo "📦 Committing all current changes first..."
+    git commit -m "chore: Stage all current changes for deployment"
+    git push origin main
+    echo "✅ Initial changes pushed!"
+    echo ""
+fi
+
+# Create and push 30 individual commits
 for i in {0..29}
 do
     echo ""
-    echo "📝 Creating commit $((i+1))/30: ${commits[$i]}"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "📝 Step $((i+1))/30: ${commits[$i]}"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     
-    # Commit with message
-    git commit --allow-empty -m "${commits[$i]}" 2>/dev/null || true
+    # Create empty commit with message
+    git commit --allow-empty -m "${commits[$i]}"
     
-    # Small delay to ensure commits have different timestamps
-    sleep 1
+    # Push immediately to GitHub
+    echo "🔄 Pushing to GitHub..."
+    git push origin main
+    
+    if [ $? -eq 0 ]; then
+        echo "✅ Push $((i+1))/30 successful!"
+    else
+        echo "❌ Push $((i+1))/30 failed!"
+        echo "Stopping process..."
+        exit 1
+    fi
+    
+    # Small delay between pushes
+    sleep 2
 done
 
 echo ""
-echo "✅ All 30 commits created!"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "🎉 SUCCESS! All 30 commits pushed to GitHub!"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
-echo "🔄 Pushing to GitHub..."
-
-# Push to GitHub
-git push origin main
-
-if [ $? -eq 0 ]; then
-    echo ""
-    echo "🎉 Successfully pushed all commits to GitHub!"
-    echo "✨ Your code is now on GitHub and ready for deployment!"
-else
-    echo ""
-    echo "❌ Push failed. You might need to:"
-    echo "   1. Set up your GitHub credentials"
-    echo "   2. Create a remote repository"
-    echo "   3. Run: git remote add origin <your-repo-url>"
-fi
-
+echo "✨ Your GitHub profile will now show 30+ contributions!"
+echo "🌟 Check your repository: https://github.com/pradeep-iitb/Sanitas"
 echo ""
-echo "📊 Repository status:"
-git status
+echo "📊 Final repository status:"
+git log --oneline -10
+
