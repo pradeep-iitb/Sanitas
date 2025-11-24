@@ -617,3 +617,4 @@ Create a `.env` file in the backend directory.
 - 🤖 AI-powered health chatbot (Meru AI)
 - 📊 Health dashboard with stats tracking
 - 📅 Online appointment booking system
+- 🍱 Meal and calorie tracking
