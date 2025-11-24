@@ -624,3 +624,4 @@ Create a `.env` file in the backend directory.
 ### Frontend
 - React 18
 - Vite
+- Tailwind CSS
