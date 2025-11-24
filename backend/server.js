@@ -36,17 +36,22 @@ app.use('/api/feedback', require('./routes/feedback'));
 
 const PORT = process.env.PORT || 5000;
 
-// Start server
-const server = app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
-  console.log(`🌍 Backend URL: http://localhost:${PORT}`);
-}).on('error', (err) => {
-  if (err.code === 'EADDRINUSE') {
-    console.error(`❌ Port ${PORT} is already in use!`);
-    console.log('💡 Try: kill -9 $(lsof -t -i:5000) or use a different port');
-    process.exit(1);
-  } else {
-    console.error('❌ Server error:', err);
-    process.exit(1);
-  }
-});
+// For Vercel serverless deployment
+if (process.env.VERCEL) {
+  module.exports = app;
+} else {
+  // Start server locally
+  const server = app.listen(PORT, () => {
+    console.log(`✅ Server running on port ${PORT}`);
+    console.log(`🌍 Backend URL: http://localhost:${PORT}`);
+  }).on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`❌ Port ${PORT} is already in use!`);
+      console.log('💡 Try: kill -9 $(lsof -t -i:5000) or use a different port');
+      process.exit(1);
+    } else {
+      console.error('❌ Server error:', err);
+      process.exit(1);
+    }
+  });
+}
