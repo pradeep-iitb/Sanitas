@@ -618,3 +618,4 @@ Create a `.env` file in the backend directory.
 - 📊 Health dashboard with stats tracking
 - 📅 Online appointment booking system
 - 🍱 Meal and calorie tracking
+- 🔥 Daily health streak tracking
