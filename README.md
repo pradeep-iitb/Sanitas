@@ -633,3 +633,6 @@ Create a `.env` file in the backend directory.
 
 ## 📄 License
 MIT License
+
+## 🤝 Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
