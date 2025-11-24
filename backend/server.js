@@ -1,3 +1,4 @@
+// Sanitas Backend API Server - Health Platform Backend
 // Entry point for the backend server
 // Sets up Express, connects to MongoDB, and mounts API routes
 const express = require('express');
