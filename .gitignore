@@ -6,3 +6,6 @@ dist/
 frontend/node_modules/
 backend/node_modules/
 *.log
+
+# Editor directories
+.vscode/
