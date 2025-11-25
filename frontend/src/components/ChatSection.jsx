@@ -236,7 +236,7 @@ export default function ChatSection() {
                 </div>
 
                 {/* Message Bubble */}
-                <div className="flex-1 max-w-[75%]">
+                <div className="flex-1 max-w-[90%] sm:max-w-[75%]">
                   <div
                     className={`rounded-2xl px-4 py-3 ${
                       message.role === 'user'
