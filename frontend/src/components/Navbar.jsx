@@ -1,10 +1,15 @@
 import { Menu, X, Activity, User, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 
-export default function Navbar({ activeSection, setActiveSection }) {
+export default function Navbar({ activeSection, setActiveSection, onLogout }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const [username] = useState('Pradeep') // You can make this dynamic later
+
+  const handleLogout = () => {
+    setIsProfileOpen(false)
+    if (onLogout) onLogout()
+  }
 
   const navLinks = [
     { id: 'home', label: 'Home' },
@@ -27,8 +32,12 @@ export default function Navbar({ activeSection, setActiveSection }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => scrollToSection('home')}>
-            <Activity className="w-8 h-8 text-cyan-400 group-hover:text-cyan-300 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12" />
+          <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => scrollToSection('home')}>
+            <img 
+              src="/sanitas.jpeg" 
+              alt="Sanitas Logo" 
+              className="w-10 h-10 rounded-full object-cover group-hover:scale-110 transition-all duration-300 shadow-lg shadow-cyan-500/30"
+            />
             <span className="text-2xl font-bold bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-500 bg-clip-text text-transparent group-hover:from-cyan-200 group-hover:to-purple-400 transition-all duration-300">
               Sanitas
             </span>
@@ -72,8 +81,11 @@ export default function Navbar({ activeSection, setActiveSection }) {
                   <button className="w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-700 hover:text-cyan-400 transition-colors">
                     My Health Data
                   </button>
-                  <button className="w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-700 hover:text-cyan-400 transition-colors border-t border-slate-700">
-                    Logout
+                  <button 
+                    onClick={handleLogout}
+                    className="w-full text-left px-4 py-3 text-red-400 hover:bg-slate-700 hover:text-red-300 transition-colors border-t border-slate-700 font-semibold"
+                  >
+                    Logout & Return to Landing
                   </button>
                 </div>
               )}
@@ -121,6 +133,12 @@ export default function Navbar({ activeSection, setActiveSection }) {
                   <p className="text-xs text-slate-400">View Profile</p>
                 </div>
               </div>
+              <button 
+                onClick={handleLogout}
+                className="w-full text-left px-3 py-2 text-red-400 hover:bg-slate-800 hover:text-red-300 rounded-lg transition-colors font-semibold mt-2"
+              >
+                Logout & Return to Landing
+              </button>
             </div>
           </div>
         </div>

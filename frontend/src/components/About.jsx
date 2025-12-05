@@ -38,8 +38,8 @@ export default function About() {
                 <div className="p-2 bg-cyan-500/10 rounded-lg group-hover:bg-cyan-500/20 transition-colors">
                   <Mail className="w-5 h-5 text-cyan-400" />
                 </div>
-                <a href="mailto:hello@sanitas.example" className="transition-colors">
-                  hello@sanitas.example
+                <a href="mailto:ambition.sanitas@gmail.com" className="transition-colors">
+                  ambition.sanitas@gmail.com
                 </a>
               </div>
               <div className="flex items-center space-x-3 text-slate-300 hover:text-purple-400 transition-colors group">
@@ -118,7 +118,7 @@ export default function About() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes blob {
           0% {
             transform: translate(0px, 0px) scale(1);

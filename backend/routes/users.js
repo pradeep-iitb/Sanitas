@@ -1,23 +1,21 @@
-// Basic CRUD routes for users and chat history listing
+// Basic user routes (simplified for serverless)
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user');
-const ChatHistory = require('../models/chatHistory');
 
-// Create user
+// Placeholder routes - DB disabled on serverless
 router.post('/', async (req, res) => {
-  try {
-    const user = await User.create(req.body);
-    res.status(201).json(user);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+  res.status(200).json({ message: 'User creation disabled on serverless' });
 });
 
-// Get user and recent chats
 router.get('/:id', async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
+  res.status(200).json({ message: 'User retrieval disabled on serverless' });
+});
+
+router.get('/:id/chats', async (req, res) => {
+  res.status(200).json({ chats: [] });
+});
+
+module.exports = router;
     if (!user) return res.status(404).json({ error: 'User not found' });
     const chats = await ChatHistory.find({ user: user._id }).sort({ createdAt: -1 }).limit(50);
     res.json({ user, chats });

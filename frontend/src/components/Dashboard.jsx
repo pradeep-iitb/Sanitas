@@ -21,12 +21,6 @@ export default function Dashboard() {
     { name: 'Dinner', calories: 550, time: '7:00 PM', emoji: '🍜', color: 'from-red-500 to-orange-500' },
   ]
 
-  const quickActions = [
-    { name: 'Medipedia', icon: BookOpen, color: 'from-cyan-500 to-blue-600', description: 'Health Encyclopedia' },
-    { name: 'Appointments', icon: CalendarCheck, color: 'from-purple-500 to-pink-600', description: 'Book Consultation' },
-    { name: 'Leaderboard', icon: Trophy, color: 'from-yellow-500 to-orange-600', description: 'Global Rankings' },
-  ]
-
   const streakDays = [
     { day: 'Mon', active: true },
     { day: 'Tue', active: true },
@@ -136,38 +130,10 @@ export default function Dashboard() {
             ))}
           </div>
         </div>
-
-        {/* Quick Actions */}
-        <div>
-          <h3 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-            <TrendingUp className="w-8 h-8 text-cyan-400" />
-            Quick Actions
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {quickActions.map((action, idx) => (
-              <button
-                key={idx}
-                className="group relative bg-slate-800/50 backdrop-blur-xl border-2 border-slate-700/50 rounded-3xl p-8 hover:scale-110 hover:-translate-y-3 transition-all duration-300 hover:shadow-2xl cursor-pointer text-left overflow-hidden animate-fade-in"
-                style={{ animationDelay: `${idx * 150}ms` }}
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${action.color} opacity-0 group-hover:opacity-20 transition-opacity`}></div>
-                <action.icon className={`w-16 h-16 mb-4 bg-gradient-to-br ${action.color} bg-clip-text text-transparent group-hover:scale-110 group-hover:rotate-6 transition-transform`} />
-                <h4 className="text-2xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">{action.name}</h4>
-                <p className="text-slate-400 group-hover:text-slate-300 transition-colors">{action.description}</p>
-                <div className={`mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r ${action.color} text-white font-semibold opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all shadow-lg`}>
-                  Open
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Custom animations */}
-      <style jsx>{`
+      <style>{`
         @keyframes blob {
           0%, 100% { transform: translate(0, 0) scale(1); }
           33% { transform: translate(30px, -50px) scale(1.1); }

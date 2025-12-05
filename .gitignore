@@ -6,3 +6,10 @@ dist/
 frontend/node_modules/
 backend/node_modules/
 *.log
+
+# Editor directories
+.vscode/
+.idea/
+
+# OS files
+.DS_Store

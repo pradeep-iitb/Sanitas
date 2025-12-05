@@ -1,37 +1,32 @@
-// Gemini client helper
-// This module provides a simple `getReply` function that calls Google Gemini API.
-// For the prototype we implement a minimal HTTPS request using `node-fetch`.
-// Replace with an official SDK if available.
-const fetch = require('node-fetch');
+// Gemini AI client using official Google SDK
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 async function getReply(message) {
   if (!GEMINI_API_KEY) {
-    // In development, return a stubbed response if API key not set
-    return `Stubbed Gemini reply to: ${message}`;
+    throw new Error('Gemini API key not configured');
   }
 
-  // Example POST to Gemini endpoint (replace with actual URL/format)
-  const url = 'https://api.example.gemini/v1/generate';
-
-  const resp = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${GEMINI_API_KEY}`,
-    },
-    body: JSON.stringify({ prompt: message }),
-  });
-
-  if (!resp.ok) {
-    const text = await resp.text();
-    throw new Error(`Gemini API error: ${resp.status} ${text}`);
+  try {
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+    
+    // Use gemini-2.0-flash which is available
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-2.0-flash'
+    });
+    
+    const prompt = `You are Meru AI, a helpful and compassionate health assistant. Provide accurate, clear health information while being empathetic. Always remind users to consult healthcare professionals for serious concerns.\n\nUser: ${message}\nAssistant:`;
+    
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    
+    return text || 'Sorry, I could not generate a response.';
+  } catch (error) {
+    console.error('Gemini API error:', error);
+    throw error;
   }
-
-  const data = await resp.json();
-  // Adjust according to actual response schema
-  return data.reply || data.choices?.[0]?.text || JSON.stringify(data);
 }
 
 module.exports = { getReply };

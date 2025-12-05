@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Send, Loader2, Bot, User as UserIcon, Sparkles, Copy, Check, Trash2, Mic } from 'lucide-react'
+import { BACKEND_ORIGIN } from '../config'
 
 export default function ChatSection() {
   const [messages, setMessages] = useState(() => {
@@ -41,28 +42,36 @@ export default function ChatSection() {
     setIsLoading(true)
 
     try {
-      const response = await fetch('/api/chat', {
+      console.log('Sending request to:', `${BACKEND_ORIGIN}/api/chat`);
+      const response = await fetch(`${BACKEND_ORIGIN}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMessage }),
       })
 
+      console.log('Response status:', response.status);
+      
       if (!response.ok) {
-        throw new Error('Failed to get response')
+        const errorData = await response.json().catch(() => ({}));
+        console.error('Error response:', errorData);
+        throw new Error(errorData.details || errorData.error || 'Failed to get response')
       }
 
       const data = await response.json()
+      console.log('Received data:', data);
+      
       setMessages((prev) => [...prev, { 
         role: 'assistant', 
         content: data.reply,
         timestamp: new Date().toISOString()
       }])
     } catch (error) {
+      console.error('Chat error:', error);
       setMessages((prev) => [
         ...prev,
         {
           role: 'assistant',
-          content: 'Sorry, I encountered an error. Please try again.',
+          content: `Sorry, I encountered an error: ${error.message}. Please check the console and make sure the backend server is running.`,
           timestamp: new Date().toISOString()
         },
       ])
@@ -145,12 +154,18 @@ export default function ChatSection() {
         <div className="bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden shadow-2xl shadow-purple-500/20">
           {/* Chat Header */}
           <div className="px-6 py-4 bg-slate-800/60 backdrop-blur-xl border-b border-slate-700/50 flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Bot className="w-5 h-5 text-cyan-400" />
-              <span className="text-white font-semibold">Meru AI</span>
-              <div className="flex space-x-1">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-xs text-slate-400">Online</span>
+            <div className="flex items-center space-x-3">
+              <img 
+                src="/meru.jpeg" 
+                alt="Meru AI" 
+                className="w-10 h-10 rounded-full object-cover shadow-lg shadow-cyan-500/30"
+              />
+              <div className="flex flex-col">
+                <span className="text-white font-semibold">Meru AI</span>
+                <div className="flex items-center space-x-1">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-slate-400">Online</span>
+                </div>
               </div>
             </div>
             {messages.length > 0 && (
@@ -170,7 +185,11 @@ export default function ChatSection() {
               <div className="flex flex-col items-center justify-center h-full text-center">
                 <div className="relative mb-8">
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 blur-2xl opacity-50 animate-pulse"></div>
-                  <Bot className="w-20 h-20 text-cyan-400 mb-4 relative" />
+                  <img 
+                    src="/meru.jpeg" 
+                    alt="Meru AI" 
+                    className="w-24 h-24 rounded-full object-cover shadow-2xl shadow-cyan-500/50 relative"
+                  />
                 </div>
                 <p className="text-2xl font-semibold text-white mb-2">
                   Start a conversation
@@ -202,22 +221,22 @@ export default function ChatSection() {
                 }`}
               >
                 {/* Avatar */}
-                <div
-                  className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center shadow-lg ${
-                    message.role === 'user'
-                      ? 'bg-gradient-to-br from-purple-500 to-pink-500 shadow-purple-500/50'
-                      : 'bg-gradient-to-br from-cyan-500 to-purple-500 shadow-cyan-500/50'
-                  }`}
-                >
+                <div className="flex-shrink-0">
                   {message.role === 'user' ? (
-                    <UserIcon className="w-5 h-5 text-white" />
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 shadow-lg shadow-purple-500/50">
+                      <UserIcon className="w-5 h-5 text-white" />
+                    </div>
                   ) : (
-                    <Bot className="w-5 h-5 text-white" />
+                    <img 
+                      src="/meru.jpeg" 
+                      alt="Meru AI" 
+                      className="w-10 h-10 rounded-full object-cover shadow-lg shadow-cyan-500/50"
+                    />
                   )}
                 </div>
 
                 {/* Message Bubble */}
-                <div className="flex-1 max-w-[75%]">
+                <div className="flex-1 max-w-[90%] sm:max-w-[75%]">
                   <div
                     className={`rounded-2xl px-4 py-3 ${
                       message.role === 'user'
@@ -311,7 +330,7 @@ export default function ChatSection() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes blob {
           0% {
             transform: translate(0px, 0px) scale(1);

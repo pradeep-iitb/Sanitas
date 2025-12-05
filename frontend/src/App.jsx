@@ -17,12 +17,16 @@ function App() {
     setShowLanding(false)
   }
 
+  const handleLogout = () => {
+    setShowLanding(true)
+  }
+
   return (
     <>
       {showLanding ? (
         <LandingPage onEnterApp={handleEnterApp} />
       ) : (
-        <MainApp />
+        <MainApp onLogout={handleLogout} />
       )}
     </>
   )

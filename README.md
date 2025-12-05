@@ -593,3 +593,53 @@ For questions or support, email: hello@sanitas.example
 ---
 
 **Built with ❤️ using React, Node.js, and Google Gemini**
+## 🚀 Quick Start
+
+### Installation
+```bash
+npm install
+```
+
+### Backend Setup
+```bash
+cd backend && npm install
+```
+
+### Frontend Setup
+```bash
+cd frontend && npm install
+```
+
+### Environment Variables
+Create a `.env` file in the backend directory.
+
+## ✨ Features
+- 🤖 AI-powered health chatbot (Meru AI)
+- 📊 Health dashboard with stats tracking
+- 📅 Online appointment booking system
+- 🍱 Meal and calorie tracking
+- 🔥 Daily health streak tracking
+
+## 🛠️ Tech Stack
+### Frontend
+- React 18
+- Vite
+- Tailwind CSS
+
+### Backend
+- Node.js & Express
+- MongoDB
+- Google Gemini AI API
+
+## 📄 License
+MIT License
+
+## 🤝 Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📧 Contact
+For questions or support, please open an issue.
+
+## 🙏 Acknowledgments
+- Google Gemini AI for powering the health chatbot
+- React and Tailwind CSS communities
